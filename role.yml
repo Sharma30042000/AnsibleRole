@@ -1,0 +1,6 @@
+- hosts: haproxy
+  roles:
+     - loadbalancerrole
+- hosts: server
+  roles:
+     - myappacherole

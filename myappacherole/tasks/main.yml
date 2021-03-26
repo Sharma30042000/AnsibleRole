@@ -1,0 +1,40 @@
+---
+# tasks file for myappacherole
+- name: "configure yum "
+  yum_repository:
+            name: dvd1
+            description: appstream
+            baseurl: file:///run/media/root/RHEL-8-0-0-BaseOS-x86_64/AppStream
+            file: rehel
+            gpgcheck: no
+- name: "configure yum"
+  yum_repository:
+            name: dvd2
+            description: baseos
+            baseurl: file:///run/media/root/RHEL-8-0-0-BaseOS-x86_64/BaseOS
+            file: rehel
+            gpgcheck: no
+- name: "install httpd"
+  package:
+            name: "httpd"
+            state: present
+- name: "stop firewalld"
+  service:
+          name: firewalld
+          state: stopped
+          enabled: False
+- name: "start httpd service"
+  service:
+             name: httpd
+             state: started
+- name: "copy html file"
+  template:
+             src: "index.html.j2"
+             dest: "/var/www/html/index.html"
+  notify: codechange
+- name:  "msg"
+  debug:
+             msg: "{{ groups }}"
+
+
+

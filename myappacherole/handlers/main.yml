@@ -1,0 +1,6 @@
+---
+# handlers file for myappacherole
+- name: codechange
+  service:
+          name: "httpd"
+          state: "restarted"
